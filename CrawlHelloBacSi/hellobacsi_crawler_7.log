@@ -1,0 +1,84 @@
+2026-02-03 07:08:34,949 - INFO - Đã có 0 bài viết trong cache
+2026-02-03 07:08:34,950 - INFO - Khởi tạo Selenium...
+2026-02-03 07:08:34,950 - INFO - ====== WebDriver manager ======
+2026-02-03 07:08:39,799 - INFO - Get LATEST chromedriver version for google-chrome
+2026-02-03 07:08:42,577 - INFO - Get LATEST chromedriver version for google-chrome
+2026-02-03 07:08:45,248 - INFO - Driver [C:\Users\LENOVO\.wdm\drivers\chromedriver\win64\144.0.7559.109\chromedriver-win32/chromedriver.exe] found in cache
+2026-02-03 07:08:48,676 - INFO - 
+============================================================
+2026-02-03 07:08:48,677 - INFO - 📁 CRAWLING: Dược liệu (/duoc-lieu/)
+2026-02-03 07:08:48,678 - INFO - ============================================================
+2026-02-03 07:08:48,679 - INFO -   📂 Bước 1: Tìm subcategories...
+2026-02-03 07:09:01,706 - INFO -   ✓ Tìm thấy 2 subcategories
+2026-02-03 07:09:01,720 - INFO -   📄 Bước 2: Lấy bài viết từ trang chính...
+2026-02-03 07:14:02,388 - INFO -   ✓ Từ trang chính: 156 bài viết
+2026-02-03 07:14:02,395 - INFO -   📂 Bước 3: Crawl 2 subcategories...
+2026-02-03 07:14:14,372 - INFO -     [1/2] thao-duoc: +384 mới (tổng: 540)
+2026-02-03 07:14:34,633 - INFO -     [2/2] duoc-lieu-khac: +7 mới (tổng: 547)
+2026-02-03 07:14:34,637 - INFO - 
+  ✅ TỔNG Dược liệu: 547 URLs bài viết
+2026-02-03 07:14:34,646 - INFO - 
+============================================================
+2026-02-03 07:14:34,652 - INFO - 📁 CRAWLING: Bệnh tai mũi họng (/benh-tai-mui-hong/)
+2026-02-03 07:14:34,654 - INFO - ============================================================
+2026-02-03 07:14:34,677 - INFO -   📂 Bước 1: Tìm subcategories...
+2026-02-03 07:16:34,701 - WARNING - Lỗi khi load https://hellobacsi.com/benh-tai-mui-hong/: HTTPConnectionPool(host='localhost', port=10803): Read timed out. (read timeout=120)
+2026-02-03 07:16:34,703 - INFO -   ✓ Tìm thấy 0 subcategories
+2026-02-03 07:16:34,703 - INFO -   📄 Bước 2: Lấy bài viết từ trang chính...
+2026-02-03 07:20:21,342 - INFO -   ✓ Từ trang chính: 128 bài viết
+2026-02-03 07:20:21,347 - INFO -   📂 Bước 3: Crawl 0 subcategories...
+2026-02-03 07:20:21,347 - INFO - 
+  ✅ TỔNG Bệnh tai mũi họng: 128 URLs bài viết
+2026-02-03 07:20:21,381 - INFO - 
+============================================================
+2026-02-03 07:20:21,382 - INFO - 📁 CRAWLING: Sức khỏe phụ nữ (/suc-khoe-phu-nu/)
+2026-02-03 07:20:21,382 - INFO - ============================================================
+2026-02-03 07:20:21,392 - INFO -   📂 Bước 1: Tìm subcategories...
+2026-02-03 07:21:06,443 - WARNING - Lỗi khi load https://hellobacsi.com/suc-khoe-phu-nu/: Message: timeout: Timed out receiving message from renderer: 44.398
+  (Session info: chrome=144.0.7559.110)
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x1188543
+	0x1188584
+	0xf7b4e0
+	0xf6b893
+	0xf6b5c5
+	0xf696d8
+	0xf69f26
+	0xf76d8b
+	0xf88abe
+	0xf8e4f6
+	0xf6a5ac
+	0xf88853
+	0x10056c1
+	0xfe7fb6
+	0xfb96f9
+	0xfba4b4
+	0x13dd034
+	0x13d82c9
+	0x13f6460
+	0x11a1a68
+	0x11a988d
+	0x1190df8
+	0x1190fc2
+	0x117ab3a
+	0x77815d49
+	0x77dad83b
+	0x77dad7c1
+
+2026-02-03 07:21:06,446 - INFO -   ✓ Tìm thấy 0 subcategories
+2026-02-03 07:21:06,447 - INFO -   📄 Bước 2: Lấy bài viết từ trang chính...
+2026-02-03 07:23:56,648 - INFO -   ✓ Từ trang chính: 153 bài viết
+2026-02-03 07:23:56,655 - INFO -   📂 Bước 3: Crawl 0 subcategories...
+2026-02-03 07:23:56,657 - INFO - 
+  ✅ TỔNG Sức khỏe phụ nữ: 153 URLs bài viết
+2026-02-03 07:23:56,709 - INFO - 
+============================================================
+2026-02-03 07:23:56,710 - INFO - 📁 CRAWLING: Sức khỏe (/suc-khoe/)
+2026-02-03 07:23:56,711 - INFO - ============================================================
+2026-02-03 07:23:56,711 - INFO -   📂 Bước 1: Tìm subcategories...
+2026-02-03 07:24:05,365 - INFO -   ✓ Tìm thấy 9 subcategories
+2026-02-03 07:24:05,366 - INFO -   📄 Bước 2: Lấy bài viết từ trang chính...
+2026-02-03 07:25:19,220 - WARNING - Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None)': /session/9525defe011af2afedbae33a8646c4fa
+2026-02-03 07:25:23,273 - WARNING - Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='localhost', port=10803): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it")': /session/9525defe011af2afedbae33a8646c4fa
+2026-02-03 07:25:27,356 - WARNING - Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'NewConnectionError("HTTPConnection(host='localhost', port=10803): Failed to establish a new connection: [WinError 10061] No connection could be made because the target machine actively refused it")': /session/9525defe011af2afedbae33a8646c4fa

@@ -1,0 +1,338 @@
+2026-02-03 07:06:10,631 - INFO - Đã có 0 bài viết trong cache
+2026-02-03 07:06:10,916 - INFO - Khởi tạo Selenium...
+2026-02-03 07:06:10,917 - INFO - ====== WebDriver manager ======
+2026-02-03 07:06:17,811 - INFO - Get LATEST chromedriver version for google-chrome
+2026-02-03 07:06:20,370 - INFO - Get LATEST chromedriver version for google-chrome
+2026-02-03 07:06:22,769 - INFO - Driver [C:\Users\LENOVO\.wdm\drivers\chromedriver\win64\144.0.7559.109\chromedriver-win32/chromedriver.exe] found in cache
+2026-02-03 07:06:26,464 - INFO - 
+============================================================
+2026-02-03 07:06:26,575 - INFO - 📁 CRAWLING: Bệnh thận và Đường tiết niệu (/benh-than-va-duong-tiet-nieu/)
+2026-02-03 07:06:26,696 - INFO - ============================================================
+2026-02-03 07:06:26,825 - INFO -   📂 Bước 1: Tìm subcategories...
+2026-02-03 07:06:59,759 - INFO -   ✓ Tìm thấy 7 subcategories
+2026-02-03 07:06:59,759 - INFO -   📄 Bước 2: Lấy bài viết từ trang chính...
+2026-02-03 07:10:03,397 - WARNING - Lỗi khi load https://hellobacsi.com/benh-than-va-duong-tiet-nieu/?page=6: Message: timeout: Timed out receiving message from renderer: 45.000
+  (Session info: chrome=144.0.7559.110)
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x1188543
+	0x1188584
+	0xf7b4e0
+	0xf6b893
+	0xf6b5c5
+	0xf696d8
+	0xf69f26
+	0xf76d8b
+	0xf88abe
+	0xf8e4f6
+	0xf6a5ac
+	0xf88853
+	0x10052b1
+	0xfe7fb6
+	0xfb96f9
+	0xfba4b4
+	0x13dd034
+	0x13d82c9
+	0x13f6460
+	0x11a1a68
+	0x11a988d
+	0x1190df8
+	0x1190fc2
+	0x117ab3a
+	0x77815d49
+	0x77dad83b
+	0x77dad7c1
+
+2026-02-03 07:10:03,495 - INFO -   ✓ Từ trang chính: 71 bài viết
+2026-02-03 07:10:03,508 - INFO -   📂 Bước 3: Crawl 7 subcategories...
+2026-02-03 07:11:06,532 - INFO -     [1/7] tuyen-tien-liet: +13 mới (tổng: 84)
+2026-02-03 07:12:06,696 - INFO -     [2/7] tieu-khong-tu-chu: +5 mới (tổng: 89)
+2026-02-03 07:12:52,689 - INFO -     [3/7] soi-duong-tiet-nieu: +8 mới (tổng: 97)
+2026-02-03 07:13:47,120 - INFO -     [4/7] nhiem-trung-duong-tieu: +8 mới (tổng: 105)
+2026-02-03 07:14:34,603 - INFO -     [5/7] van-de-tiet-nieu-khac: +30 mới (tổng: 135)
+2026-02-03 07:17:21,403 - WARNING - Lỗi khi load https://hellobacsi.com/benh-than-va-duong-tiet-nieu/benh-than/?page=4: Message: timeout: Timed out receiving message from renderer: 45.000
+  (Session info: chrome=144.0.7559.110)
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x1188543
+	0x1188584
+	0xf7b4e0
+	0xf6b893
+	0xf6b5c5
+	0xf696d8
+	0xf69f26
+	0xf76d8b
+	0xf88abe
+	0xf8e4f6
+	0xf6a5ac
+	0xf88853
+	0x10052b1
+	0xfe7fb6
+	0xfb96f9
+	0xfba4b4
+	0x13dd034
+	0x13d82c9
+	0x13f6460
+	0x11a1a68
+	0x11a988d
+	0x1190df8
+	0x1190fc2
+	0x117ab3a
+	0x77815d49
+	0x77dad83b
+	0x77dad7c1
+
+2026-02-03 07:17:21,420 - INFO -     [6/7] benh-than: +17 mới (tổng: 152)
+2026-02-03 07:18:39,440 - INFO -     [7/7] benh-bang-quang: +23 mới (tổng: 175)
+2026-02-03 07:18:39,535 - INFO - 
+  ✅ TỔNG Bệnh thận và Đường tiết niệu: 175 URLs bài viết
+2026-02-03 07:18:39,625 - INFO - 
+============================================================
+2026-02-03 07:18:39,628 - INFO - 📁 CRAWLING: Bệnh về não và hệ thần kinh (/benh-nao-he-than-kinh/)
+2026-02-03 07:18:39,628 - INFO - ============================================================
+2026-02-03 07:18:39,630 - INFO -   📂 Bước 1: Tìm subcategories...
+2026-02-03 07:19:24,654 - WARNING - Lỗi khi load https://hellobacsi.com/benh-nao-he-than-kinh/: Message: timeout: Timed out receiving message from renderer: 44.417
+  (Session info: chrome=144.0.7559.110)
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x1188543
+	0x1188584
+	0xf7b4e0
+	0xf6b893
+	0xf6b5c5
+	0xf696d8
+	0xf69f26
+	0xf76d8b
+	0xf88abe
+	0xf8e4f6
+	0xf6a5ac
+	0xf88853
+	0x10056c1
+	0xfe7fb6
+	0xfb96f9
+	0xfba4b4
+	0x13dd034
+	0x13d82c9
+	0x13f6460
+	0x11a1a68
+	0x11a988d
+	0x1190df8
+	0x1190fc2
+	0x117ab3a
+	0x77815d49
+	0x77dad83b
+	0x77dad7c1
+
+2026-02-03 07:19:24,668 - INFO -   ✓ Tìm thấy 0 subcategories
+2026-02-03 07:19:24,682 - INFO -   📄 Bước 2: Lấy bài viết từ trang chính...
+2026-02-03 07:20:09,765 - WARNING - Lỗi khi load https://hellobacsi.com/benh-nao-he-than-kinh/: Message: timeout: Timed out receiving message from renderer: 45.000
+  (Session info: chrome=144.0.7559.110)
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x1188543
+	0x1188584
+	0xf7b4e0
+	0xf6b893
+	0xf6b5c5
+	0xf696d8
+	0xf69f26
+	0xf76d8b
+	0xf88abe
+	0xf8e4f6
+	0xf6a5ac
+	0xf88853
+	0x10052b1
+	0xfe7fb6
+	0xfb96f9
+	0xfba4b4
+	0x13dd034
+	0x13d82c9
+	0x13f6460
+	0x11a1a68
+	0x11a988d
+	0x1190df8
+	0x1190fc2
+	0x117ab3a
+	0x77815d49
+	0x77dad83b
+	0x77dad7c1
+
+2026-02-03 07:20:09,766 - INFO -   ✓ Từ trang chính: 0 bài viết
+2026-02-03 07:20:09,766 - INFO -   📂 Bước 3: Crawl 0 subcategories...
+2026-02-03 07:20:09,767 - INFO - 
+  ✅ TỔNG Bệnh về não và hệ thần kinh: 0 URLs bài viết
+2026-02-03 07:20:09,776 - INFO - 
+============================================================
+2026-02-03 07:20:09,777 - INFO - 📁 CRAWLING: Ăn uống lành mạnh (/an-uong-lanh-manh/)
+2026-02-03 07:20:09,778 - INFO - ============================================================
+2026-02-03 07:20:09,778 - INFO -   📂 Bước 1: Tìm subcategories...
+2026-02-03 07:20:54,791 - WARNING - Lỗi khi load https://hellobacsi.com/an-uong-lanh-manh/: Message: timeout: Timed out receiving message from renderer: 45.000
+  (Session info: chrome=144.0.7559.110)
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x1188543
+	0x1188584
+	0xf7b4e0
+	0xf6b893
+	0xf6b5c5
+	0xf696d8
+	0xf69f26
+	0xf76d8b
+	0xf88abe
+	0xf8e4f6
+	0xf6a5ac
+	0xf88853
+	0x10052b1
+	0xfe7fb6
+	0xfb96f9
+	0xfba4b4
+	0x13dd034
+	0x13d82c9
+	0x13f6460
+	0x11a1a68
+	0x11a988d
+	0x1190df8
+	0x1190fc2
+	0x117ab3a
+	0x77815d49
+	0x77dad83b
+	0x77dad7c1
+
+2026-02-03 07:20:54,792 - INFO -   ✓ Tìm thấy 0 subcategories
+2026-02-03 07:20:54,792 - INFO -   📄 Bước 2: Lấy bài viết từ trang chính...
+2026-02-03 07:21:39,805 - WARNING - Lỗi khi load https://hellobacsi.com/an-uong-lanh-manh/: Message: timeout: Timed out receiving message from renderer: 45.000
+  (Session info: chrome=144.0.7559.110)
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x1188543
+	0x1188584
+	0xf7b4e0
+	0xf6b893
+	0xf6b5c5
+	0xf696d8
+	0xf69f26
+	0xf76d8b
+	0xf88abe
+	0xf8e4f6
+	0xf6a5ac
+	0xf88853
+	0x10052b1
+	0xfe7fb6
+	0xfb96f9
+	0xfba4b4
+	0x13dd034
+	0x13d82c9
+	0x13f6460
+	0x11a1a68
+	0x11a988d
+	0x1190df8
+	0x1190fc2
+	0x117ab3a
+	0x77815d49
+	0x77dad83b
+	0x77dad7c1
+
+2026-02-03 07:21:39,822 - INFO -   ✓ Từ trang chính: 0 bài viết
+2026-02-03 07:21:39,836 - INFO -   📂 Bước 3: Crawl 0 subcategories...
+2026-02-03 07:21:39,858 - INFO - 
+  ✅ TỔNG Ăn uống lành mạnh: 0 URLs bài viết
+2026-02-03 07:21:39,861 - INFO - 
+============================================================
+2026-02-03 07:21:39,888 - INFO - 📁 CRAWLING: Thể dục thể thao (/the-duc-the-thao/)
+2026-02-03 07:21:39,929 - INFO - ============================================================
+2026-02-03 07:21:39,985 - INFO -   📂 Bước 1: Tìm subcategories...
+2026-02-03 07:22:26,274 - WARNING - Lỗi khi load https://hellobacsi.com/the-duc-the-thao/: Message: timeout: Timed out receiving message from renderer: 45.000
+  (Session info: chrome=144.0.7559.110)
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x1188543
+	0x1188584
+	0xf7b4e0
+	0xf6b893
+	0xf6b5c5
+	0xf696d8
+	0xf69f26
+	0xf76d8b
+	0xf88abe
+	0xf8e4f6
+	0xf6a5ac
+	0xf88853
+	0x10052b1
+	0xfe7fb6
+	0xfb96f9
+	0xfba4b4
+	0x13dd034
+	0x13d82c9
+	0x13f6460
+	0x11a1a68
+	0x11a988d
+	0x1190df8
+	0x1190fc2
+	0x117ab3a
+	0x77815d49
+	0x77dad83b
+	0x77dad7c1
+
+2026-02-03 07:22:26,275 - INFO -   ✓ Tìm thấy 0 subcategories
+2026-02-03 07:22:26,279 - INFO -   📄 Bước 2: Lấy bài viết từ trang chính...
+2026-02-03 07:23:11,295 - WARNING - Lỗi khi load https://hellobacsi.com/the-duc-the-thao/: Message: timeout: Timed out receiving message from renderer: 45.000
+  (Session info: chrome=144.0.7559.110)
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x1188543
+	0x1188584
+	0xf7b4e0
+	0xf6b893
+	0xf6b5c5
+	0xf696d8
+	0xf69f26
+	0xf76d8b
+	0xf88abe
+	0xf8e4f6
+	0xf6a5ac
+	0xf88853
+	0x10052b1
+	0xfe7fb6
+	0xfb96f9
+	0xfba4b4
+	0x13dd034
+	0x13d82c9
+	0x13f6460
+	0x11a1a68
+	0x11a988d
+	0x1190df8
+	0x1190fc2
+	0x117ab3a
+	0x77815d49
+	0x77dad83b
+	0x77dad7c1
+
+2026-02-03 07:23:11,307 - INFO -   ✓ Từ trang chính: 0 bài viết
+2026-02-03 07:23:11,312 - INFO -   📂 Bước 3: Crawl 0 subcategories...
+2026-02-03 07:23:11,380 - INFO - 
+  ✅ TỔNG Thể dục thể thao: 0 URLs bài viết
+2026-02-03 07:23:24,152 - INFO - 
+📊 Phase 1 Hoàn tất:
+2026-02-03 07:23:24,187 - INFO -    - Tổng URLs: 175
+2026-02-03 07:23:24,187 - INFO -    - Đã crawl: 0
+2026-02-03 07:23:24,188 - INFO -    - URLs mới: 175
+2026-02-03 07:23:27,195 - INFO - 💾 Saved: 0 articles -> hellobacsi_data_5\articles_5.json
+2026-02-03 07:23:28,663 - INFO - 💾 Saved: 0 articles -> hellobacsi_data_5\articles_5.json
+2026-02-03 07:23:29,222 - INFO - 💾 Saved: 0 articles -> hellobacsi_data_5\articles_5.json
+2026-02-03 07:23:29,736 - INFO - 💾 Saved: 0 articles -> hellobacsi_data_5\articles_5.json
+2026-02-03 07:23:30,386 - INFO - 💾 Saved: 0 articles -> hellobacsi_data_5\articles_5.json
+2026-02-03 07:23:31,018 - INFO - 💾 Saved: 0 articles -> hellobacsi_data_5\articles_5.json
+2026-02-03 07:23:31,869 - INFO - 💾 Saved: 0 articles -> hellobacsi_data_5\articles_5.json
+2026-02-03 07:23:32,602 - INFO - 💾 Saved: 0 articles -> hellobacsi_data_5\articles_5.json
+2026-02-03 07:23:57,858 - INFO - [28/175] ✓ Đã crawl 20 bài viết
+2026-02-03 07:24:38,558 - INFO - [49/175] ✓ Đã crawl 40 bài viết
+2026-02-03 07:25:04,501 - INFO - 💾 Saved: 50 articles -> hellobacsi_data_5\articles_5.json
+2026-02-03 07:25:26,694 - INFO - [69/175] ✓ Đã crawl 60 bài viết
+2026-02-03 07:26:08,411 - INFO - [89/175] ✓ Đã crawl 80 bài viết
+2026-02-03 07:26:49,342 - INFO - [109/175] ✓ Đã crawl 100 bài viết
+2026-02-03 07:26:49,383 - INFO - 💾 Saved: 100 articles -> hellobacsi_data_5\articles_5.json
+2026-02-03 07:27:33,067 - INFO - [129/175] ✓ Đã crawl 120 bài viết
+2026-02-03 07:28:29,183 - INFO - [149/175] ✓ Đã crawl 140 bài viết
+2026-02-03 07:28:51,781 - INFO - 💾 Saved: 150 articles -> hellobacsi_data_5\articles_5.json
+2026-02-03 07:29:12,222 - INFO - [169/175] ✓ Đã crawl 160 bài viết
+2026-02-03 07:29:21,513 - INFO - 💾 Saved: 166 articles -> hellobacsi_data_5\articles_5.json

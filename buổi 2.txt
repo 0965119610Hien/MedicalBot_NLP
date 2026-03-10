@@ -1,0 +1,8 @@
+chữ hoa thành thường
+xóa dấu câu
+
+
+
+khai phá dữ liệu
+
+viết pipeline hoàn chỉnh thực hiện 8 việc.

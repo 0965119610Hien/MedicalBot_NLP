@@ -1,0 +1,67 @@
+{
+  "diseases.json": {
+    "total_records": 386,
+    "total_chars": 8909785,
+    "avg_chars": 23082.344559585494,
+    "min_chars": 7211,
+    "max_chars": 60958,
+    "field_counts": {
+      "url": 386,
+      "crawl_time": 386,
+      "nguyen_nhan": 378,
+      "yeu_to_nguy_co": 352,
+      "trieu_chung": 370,
+      "chan_doan": 369,
+      "dieu_tri": 367,
+      "phong_ngua": 360,
+      "noi_dung_day_du": 386,
+      "bien_chung": 14,
+      "tien_luong": 2
+    }
+  },
+  "articles.json": {
+    "total_records": 2215,
+    "total_chars": 22621332,
+    "avg_chars": 10212.790970654627,
+    "min_chars": 484,
+    "max_chars": 47157,
+    "field_counts": {
+      "url": 2215,
+      "crawl_time": 2215,
+      "tieu_de": 2215,
+      "mo_ta": 2212,
+      "noi_dung": 2215
+    }
+  },
+  "drug_qa_pairs.json": {
+    "total_records": 546,
+    "total_chars": 149953,
+    "avg_chars": 274.63919413919416,
+    "min_chars": 50,
+    "max_chars": 1447,
+    "field_counts": {
+      "question": 546,
+      "answer": 546
+    }
+  },
+  "drugs.json": {
+    "total_records": 192,
+    "total_chars": 573706,
+    "avg_chars": 2988.0520833333335,
+    "min_chars": 78,
+    "max_chars": 7395,
+    "field_counts": {
+      "url": 192,
+      "name": 192,
+      "formulation": 191,
+      "drug_group": 190,
+      "indication": 191,
+      "precaution": 142,
+      "dosage": 190,
+      "usage_notes": 182,
+      "references": 24,
+      "full_text": 192,
+      "side_effects": 165
+    }
+  }
+}

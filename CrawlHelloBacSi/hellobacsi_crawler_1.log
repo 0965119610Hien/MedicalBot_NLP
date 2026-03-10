@@ -1,0 +1,354 @@
+2026-02-03 07:04:07,878 - INFO - Đã có 0 bài viết trong cache
+2026-02-03 07:04:07,880 - INFO - Khởi tạo Selenium...
+2026-02-03 07:04:07,880 - INFO - ====== WebDriver manager ======
+2026-02-03 07:04:19,806 - INFO - Get LATEST chromedriver version for google-chrome
+2026-02-03 07:04:21,578 - INFO - Get LATEST chromedriver version for google-chrome
+2026-02-03 07:04:23,358 - INFO - Get LATEST chromedriver version for google-chrome
+2026-02-03 07:04:27,892 - INFO - WebDriver version 144.0.7559.109 selected
+2026-02-03 07:04:27,905 - INFO - Modern chrome version https://storage.googleapis.com/chrome-for-testing-public/144.0.7559.109/win32/chromedriver-win32.zip
+2026-02-03 07:04:27,905 - INFO - About to download new driver from https://storage.googleapis.com/chrome-for-testing-public/144.0.7559.109/win32/chromedriver-win32.zip
+2026-02-03 07:04:28,988 - INFO - Driver downloading response is 200
+2026-02-03 07:04:30,857 - INFO - Get LATEST chromedriver version for google-chrome
+2026-02-03 07:04:32,759 - INFO - Driver has been saved in cache [C:\Users\LENOVO\.wdm\drivers\chromedriver\win64\144.0.7559.109]
+2026-02-03 07:04:36,174 - INFO - 
+============================================================
+2026-02-03 07:04:36,176 - INFO - 📁 CRAWLING: Vắc-xin (/vacxin/)
+2026-02-03 07:04:36,176 - INFO - ============================================================
+2026-02-03 07:04:36,176 - INFO -   📂 Bước 1: Tìm subcategories...
+2026-02-03 07:05:14,687 - INFO -   ✓ Tìm thấy 24 subcategories
+2026-02-03 07:05:14,689 - INFO -   📄 Bước 2: Lấy bài viết từ trang chính...
+2026-02-03 07:09:29,058 - WARNING - Lỗi khi load https://hellobacsi.com/vacxin/?page=12: Message: timeout: Timed out receiving message from renderer: 43.004
+  (Session info: chrome=144.0.7559.110)
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x1188543
+	0x1188584
+	0xf7b4e0
+	0xf6b893
+	0xf6b5c5
+	0xf696d8
+	0xf69f26
+	0xf76d8b
+	0xf88abe
+	0xf8e4f6
+	0xf6a5ac
+	0xf88853
+	0x10056c1
+	0xfe7fb6
+	0xfb96f9
+	0xfba4b4
+	0x13dd034
+	0x13d82c9
+	0x13f6460
+	0x11a1a68
+	0x11a988d
+	0x1190df8
+	0x1190fc2
+	0x117ab3a
+	0x77815d49
+	0x77dad83b
+	0x77dad7c1
+
+2026-02-03 07:09:29,084 - INFO -   ✓ Từ trang chính: 163 bài viết
+2026-02-03 07:09:29,084 - INFO -   📂 Bước 3: Crawl 24 subcategories...
+2026-02-03 07:10:17,382 - INFO -     [1/24] vacxin-thuong-han: +0 mới (tổng: 163)
+2026-02-03 07:11:42,137 - INFO -     [2/24] vacxin-bai-liet: +0 mới (tổng: 163)
+2026-02-03 07:12:38,174 - INFO -     [3/24] vacxin-quai-bi: +0 mới (tổng: 163)
+2026-02-03 07:13:16,105 - INFO -     [4/24] vacxin-vi-khuan-hib: +0 mới (tổng: 163)
+2026-02-03 07:13:50,277 - INFO -     [5/24] vacxin-zona: +0 mới (tổng: 163)
+2026-02-03 07:14:12,409 - INFO -     [6/24] vacxin-sot-xuat-huyet: +0 mới (tổng: 163)
+2026-02-03 07:14:33,822 - INFO -     [7/24] vacxin-soi: +0 mới (tổng: 163)
+2026-02-03 07:15:32,863 - INFO -     [8/24] vacxin-phong-dai: +0 mới (tổng: 163)
+2026-02-03 07:16:02,221 - INFO -     [9/24] vacxin-viem-mang-nao: +0 mới (tổng: 163)
+2026-02-03 07:16:30,004 - INFO -     [10/24] vacxin-thuy-dau: +0 mới (tổng: 163)
+2026-02-03 07:16:54,877 - INFO -     [11/24] vacxin-ho-ga: +0 mới (tổng: 163)
+2026-02-03 07:17:59,906 - INFO -     [12/24] vacxin-bach-hau: +0 mới (tổng: 163)
+2026-02-03 07:18:48,223 - INFO -     [13/24] vacxin-viem-nao-nhat-ban: +0 mới (tổng: 163)
+2026-02-03 07:19:46,543 - INFO -     [14/24] vacxin-ta: +0 mới (tổng: 163)
+2026-02-03 07:20:19,220 - INFO -     [15/24] vacxin-tieu-chay: +0 mới (tổng: 163)
+2026-02-03 07:21:04,285 - WARNING - Lỗi khi load https://hellobacsi.com/vacxin/vacxin-rubella/: Message: timeout: Timed out receiving message from renderer: 43.187
+  (Session info: chrome=144.0.7559.110)
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x1188543
+	0x1188584
+	0xf7b4e0
+	0xf6b893
+	0xf6b5c5
+	0xf696d8
+	0xf69f26
+	0xf76d8b
+	0xf88abe
+	0xf8e4f6
+	0xf6a5ac
+	0xf88853
+	0x10056c1
+	0xfe7fb6
+	0xfb96f9
+	0xfba4b4
+	0x13dd034
+	0x13d82c9
+	0x13f6460
+	0x11a1a68
+	0x11a988d
+	0x1190df8
+	0x1190fc2
+	0x117ab3a
+	0x77815d49
+	0x77dad83b
+	0x77dad7c1
+
+2026-02-03 07:21:04,313 - INFO -     [16/24] vacxin-rubella: +0 mới (tổng: 163)
+2026-02-03 07:22:02,674 - INFO -     [17/24] vacxin-dau-mau: +0 mới (tổng: 163)
+2026-02-03 07:22:23,561 - INFO -     [18/24] vacxin-lao: +0 mới (tổng: 163)
+2026-02-03 07:22:42,874 - INFO -     [19/24] vacxin-viem-gan-b: +0 mới (tổng: 163)
+2026-02-03 07:23:04,714 - INFO -     [20/24] vacxin-viem-gan-a: +0 mới (tổng: 163)
+2026-02-03 07:23:26,108 - INFO -     [21/24] vacxin-cum: +0 mới (tổng: 163)
+2026-02-03 07:23:47,587 - INFO -     [22/24] vacxin-hpv: +0 mới (tổng: 163)
+2026-02-03 07:24:02,666 - INFO -     [23/24] vacxin-phe-cau: +0 mới (tổng: 163)
+2026-02-03 07:24:21,695 - INFO -     [24/24] vacxin-uon-van: +0 mới (tổng: 163)
+2026-02-03 07:24:21,719 - INFO - 
+  ✅ TỔNG Vắc-xin: 163 URLs bài viết
+2026-02-03 07:24:21,733 - INFO - 
+============================================================
+2026-02-03 07:24:21,736 - INFO - 📁 CRAWLING: Mang thai (/mang-thai/)
+2026-02-03 07:24:21,737 - INFO - ============================================================
+2026-02-03 07:24:21,737 - INFO -   📂 Bước 1: Tìm subcategories...
+2026-02-03 07:24:31,200 - INFO -   ✓ Tìm thấy 6 subcategories
+2026-02-03 07:24:31,208 - INFO -   📄 Bước 2: Lấy bài viết từ trang chính...
+2026-02-03 07:28:31,976 - INFO -   ✓ Từ trang chính: 521 bài viết
+2026-02-03 07:28:31,977 - INFO -   📂 Bước 3: Crawl 6 subcategories...
+2026-02-03 07:28:48,501 - INFO -     [1/6] thu-tinh-ong-nghiem-ivf: +1 mới (tổng: 522)
+2026-02-03 07:31:49,067 - INFO -     [2/6] cham-soc-me-sau-sinh: +62 mới (tổng: 584)
+2026-02-03 07:34:47,542 - INFO -     [3/6] chuan-bi-mang-thai: +61 mới (tổng: 645)
+2026-02-03 07:35:40,092 - INFO -     [4/6] di-sinh: +2 mới (tổng: 647)
+2026-02-03 07:38:41,842 - INFO -     [5/6] thai-ky: +62 mới (tổng: 709)
+2026-02-03 07:38:57,856 - INFO -     [6/6] dong-lanh-trung: +0 mới (tổng: 709)
+2026-02-03 07:38:57,856 - INFO - 
+  ✅ TỔNG Mang thai: 709 URLs bài viết
+2026-02-03 07:38:57,867 - INFO - 
+============================================================
+2026-02-03 07:38:57,870 - INFO - 📁 CRAWLING: Nuôi dạy con (/nuoi-day-con/)
+2026-02-03 07:38:57,873 - INFO - ============================================================
+2026-02-03 07:38:57,874 - INFO -   📂 Bước 1: Tìm subcategories...
+2026-02-03 07:39:06,388 - INFO -   ✓ Tìm thấy 5 subcategories
+2026-02-03 07:39:06,389 - INFO -   📄 Bước 2: Lấy bài viết từ trang chính...
+2026-02-03 07:41:05,293 - INFO -   ✓ Từ trang chính: 175 bài viết
+2026-02-03 07:41:05,427 - INFO -   📂 Bước 3: Crawl 5 subcategories...
+2026-02-03 07:43:11,049 - INFO -     [1/5] tre-di-hoc: +138 mới (tổng: 313)
+2026-02-03 07:45:46,494 - INFO -     [2/5] tre-1-5-tuoi: +177 mới (tổng: 490)
+2026-02-03 07:48:22,007 - INFO -     [3/5] be-0-1-tuoi: +131 mới (tổng: 621)
+2026-02-03 07:50:05,025 - INFO -     [4/5] tuoi-day-thi: +124 mới (tổng: 745)
+2026-02-03 07:52:23,870 - WARNING - Lỗi khi load https://hellobacsi.com/nuoi-day-con/nhi-khoa/?page=13: Message: timeout: Timed out receiving message from renderer: -0.005
+  (Session info: chrome=144.0.7559.110)
+Stacktrace:
+Symbols not available. Dumping unresolved backtrace:
+	0x1188543
+	0x1188584
+	0xf7b4e0
+	0xf6b893
+	0xf6b5c5
+	0xf696d8
+	0xf69f26
+	0xf76d8b
+	0xf88abe
+	0xf8e4f6
+	0xf6a5ac
+	0xf88853
+	0x10052b1
+	0xfe7fb6
+	0xfb96f9
+	0xfba4b4
+	0x13dd034
+	0x13d82c9
+	0x13f6460
+	0x11a1a68
+	0x11a988d
+	0x1190df8
+	0x1190fc2
+	0x117ab3a
+	0x77815d49
+	0x77dad83b
+	0x77dad7c1
+
+2026-02-03 07:52:23,874 - INFO -     [5/5] nhi-khoa: +68 mới (tổng: 813)
+2026-02-03 07:52:23,875 - INFO - 
+  ✅ TỔNG Nuôi dạy con: 813 URLs bài viết
+2026-02-03 07:52:23,884 - INFO - 
+============================================================
+2026-02-03 07:52:23,886 - INFO - 📁 CRAWLING: Tiểu đường (/tieu-duong-dai-thao-duong/)
+2026-02-03 07:52:23,886 - INFO - ============================================================
+2026-02-03 07:52:23,887 - INFO -   📂 Bước 1: Tìm subcategories...
+2026-02-03 07:52:46,938 - INFO -   ✓ Tìm thấy 17 subcategories
+2026-02-03 07:52:46,939 - INFO -   📄 Bước 2: Lấy bài viết từ trang chính...
+2026-02-03 07:54:29,050 - INFO -   ✓ Từ trang chính: 157 bài viết
+2026-02-03 07:54:29,050 - INFO -   📂 Bước 3: Crawl 17 subcategories...
+2026-02-03 07:56:20,603 - INFO -     [1/17] uong-nuoc-mia-nhieu-co-bi-tieu-duong-khong: +13 mới (tổng: 170)
+2026-02-03 07:57:47,239 - INFO -     [2/17] ha-duong-huyet-nen-an-gi: +16 mới (tổng: 186)
+2026-02-03 07:59:04,069 - INFO -     [3/17] tiem-insulin-sau-an-co-duoc-khong: +8 mới (tổng: 194)
+2026-02-03 07:59:54,717 - INFO -     [4/17] may-do-duong-huyet-safe-accu: +2 mới (tổng: 196)
+2026-02-03 08:01:45,381 - INFO -     [5/17] tieu-duong-type-2: +50 mới (tổng: 246)
+2026-02-03 08:03:06,914 - INFO -     [6/17] nguoi-benh-tieu-duong-co-an-duoc-trung-ga-khong: +32 mới (tổng: 278)
+2026-02-03 08:04:28,977 - INFO -     [7/17] tieu-duong-7-5-co-nguy-hiem-khong: +12 mới (tổng: 290)
+2026-02-03 08:05:39,578 - INFO -     [8/17] nguoi-benh-tieu-duong-uong-ruou-duoc-khong: +3 mới (tổng: 293)
+2026-02-03 08:07:03,028 - INFO -     [9/17] trieu-chung-tang-duong-huyet: +5 mới (tổng: 298)
+2026-02-03 08:07:55,282 - INFO -     [10/17] giai-dap-nhung-hieu-lam-ve-dai-thao-duong-type-2-lua-chon-sua-cho-nguoi-benh-tieu-duong-type-2: +0 mới (tổng: 298)
+2026-02-03 08:08:51,318 - INFO -     [11/17] insulin-nph: +5 mới (tổng: 303)
+2026-02-03 08:10:01,545 - INFO -     [12/17] insulin-analog-la-gi: +7 mới (tổng: 310)
+2026-02-03 08:10:40,488 - INFO -     [13/17] insulin-regular: +3 mới (tổng: 313)
+2026-02-03 08:11:38,169 - INFO -     [14/17] 4-su-that-ve-insulin-trong-dieu-tri-dai-thao-duong-khong-phai-ai-cung-biet: +0 mới (tổng: 313)
+2026-02-03 08:12:03,022 - INFO -     [15/17] tieu-duong-type-1: +6 mới (tổng: 319)
+2026-02-03 08:12:39,117 - INFO -     [16/17] bien-chung-tieu-duong: +28 mới (tổng: 347)
+2026-02-03 08:13:54,952 - INFO -     [17/17] quen-tiem-insulin-co-sao-khong: +1 mới (tổng: 348)
+2026-02-03 08:13:54,952 - INFO - 
+  ✅ TỔNG Tiểu đường: 348 URLs bài viết
+2026-02-03 08:13:58,938 - INFO - 
+📊 Phase 1 Hoàn tất:
+2026-02-03 08:13:58,945 - INFO -    - Tổng URLs: 1984
+2026-02-03 08:13:58,946 - INFO -    - Đã crawl: 0
+2026-02-03 08:13:58,946 - INFO -    - URLs mới: 1984
+2026-02-03 08:14:00,924 - INFO - 💾 Saved: 0 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 08:14:01,739 - INFO - 💾 Saved: 0 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 08:14:02,288 - INFO - 💾 Saved: 0 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 08:14:02,756 - INFO - 💾 Saved: 0 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 08:14:03,633 - INFO - 💾 Saved: 0 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 08:14:04,798 - INFO - 💾 Saved: 0 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 08:14:05,566 - INFO - 💾 Saved: 0 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 08:14:06,184 - INFO - 💾 Saved: 0 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 08:14:40,803 - INFO - [28/1984] ✓ Đã crawl 20 bài viết
+2026-02-03 08:15:22,479 - INFO - [54/1984] ✓ Đã crawl 40 bài viết
+2026-02-03 08:15:43,829 - INFO - 💾 Saved: 50 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 08:15:57,968 - INFO - [74/1984] ✓ Đã crawl 60 bài viết
+2026-02-03 08:16:38,893 - INFO - [95/1984] ✓ Đã crawl 80 bài viết
+2026-02-03 08:17:13,332 - INFO - [115/1984] ✓ Đã crawl 100 bài viết
+2026-02-03 08:17:13,339 - INFO - 💾 Saved: 100 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 08:17:48,305 - INFO - [135/1984] ✓ Đã crawl 120 bài viết
+2026-02-03 08:18:26,485 - INFO - [155/1984] ✓ Đã crawl 140 bài viết
+2026-02-03 08:18:40,600 - INFO - 💾 Saved: 150 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 08:18:56,799 - INFO - [175/1984] ✓ Đã crawl 160 bài viết
+2026-02-03 08:19:17,445 - INFO - [195/1984] ✓ Đã crawl 180 bài viết
+2026-02-03 08:20:23,897 - INFO - [216/1984] ✓ Đã crawl 200 bài viết
+2026-02-03 08:20:23,915 - INFO - 💾 Saved: 200 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 08:21:16,464 - INFO - [236/1984] ✓ Đã crawl 220 bài viết
+2026-02-03 08:22:32,996 - INFO - [256/1984] ✓ Đã crawl 240 bài viết
+2026-02-03 08:22:58,344 - INFO - 💾 Saved: 250 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 08:23:21,841 - INFO - [276/1984] ✓ Đã crawl 260 bài viết
+2026-02-03 08:24:22,741 - INFO - [296/1984] ✓ Đã crawl 280 bài viết
+2026-02-03 08:25:30,014 - INFO - [316/1984] ✓ Đã crawl 300 bài viết
+2026-02-03 08:25:30,041 - INFO - 💾 Saved: 300 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 08:26:40,403 - INFO - [337/1984] ✓ Đã crawl 320 bài viết
+2026-02-03 08:27:17,563 - INFO - [357/1984] ✓ Đã crawl 340 bài viết
+2026-02-03 08:27:38,545 - INFO - 💾 Saved: 350 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 08:27:56,581 - INFO - [377/1984] ✓ Đã crawl 360 bài viết
+2026-02-03 08:28:54,582 - INFO - [397/1984] ✓ Đã crawl 380 bài viết
+2026-02-03 08:29:31,960 - INFO - [417/1984] ✓ Đã crawl 400 bài viết
+2026-02-03 08:29:31,995 - INFO - 💾 Saved: 400 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 08:30:39,747 - INFO - [437/1984] ✓ Đã crawl 420 bài viết
+2026-02-03 08:31:19,937 - INFO - [457/1984] ✓ Đã crawl 440 bài viết
+2026-02-03 08:31:51,756 - INFO - 💾 Saved: 450 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 08:32:20,195 - INFO - [477/1984] ✓ Đã crawl 460 bài viết
+2026-02-03 08:33:23,818 - INFO - [497/1984] ✓ Đã crawl 480 bài viết
+2026-02-03 08:34:33,693 - INFO - [517/1984] ✓ Đã crawl 500 bài viết
+2026-02-03 08:34:33,745 - INFO - 💾 Saved: 500 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 08:35:29,645 - INFO - [537/1984] ✓ Đã crawl 520 bài viết
+2026-02-03 08:36:27,410 - INFO - [557/1984] ✓ Đã crawl 540 bài viết
+2026-02-03 08:36:55,498 - INFO - 💾 Saved: 550 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 08:37:37,784 - INFO - [577/1984] ✓ Đã crawl 560 bài viết
+2026-02-03 08:39:00,310 - INFO - [597/1984] ✓ Đã crawl 580 bài viết
+2026-02-03 08:41:09,057 - INFO - [617/1984] ✓ Đã crawl 600 bài viết
+2026-02-03 08:41:09,106 - INFO - 💾 Saved: 600 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 08:42:32,961 - INFO - [637/1984] ✓ Đã crawl 620 bài viết
+2026-02-03 08:44:22,944 - INFO - [657/1984] ✓ Đã crawl 640 bài viết
+2026-02-03 08:45:07,866 - INFO - 💾 Saved: 650 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 08:45:46,309 - INFO - [677/1984] ✓ Đã crawl 660 bài viết
+2026-02-03 08:47:03,339 - INFO - [697/1984] ✓ Đã crawl 680 bài viết
+2026-02-03 08:48:59,240 - INFO - [717/1984] ✓ Đã crawl 700 bài viết
+2026-02-03 08:48:59,329 - INFO - 💾 Saved: 700 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 08:50:16,267 - INFO - [737/1984] ✓ Đã crawl 720 bài viết
+2026-02-03 08:51:54,356 - INFO - [757/1984] ✓ Đã crawl 740 bài viết
+2026-02-03 08:52:37,067 - INFO - 💾 Saved: 750 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 08:53:20,398 - INFO - [777/1984] ✓ Đã crawl 760 bài viết
+2026-02-03 08:54:42,067 - INFO - [797/1984] ✓ Đã crawl 780 bài viết
+2026-02-03 08:56:24,114 - INFO - [818/1984] ✓ Đã crawl 800 bài viết
+2026-02-03 08:56:24,184 - INFO - 💾 Saved: 800 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 08:57:17,067 - INFO - [838/1984] ✓ Đã crawl 820 bài viết
+2026-02-03 08:58:20,274 - INFO - [858/1984] ✓ Đã crawl 840 bài viết
+2026-02-03 08:59:26,541 - INFO - 💾 Saved: 850 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 09:00:43,170 - INFO - [878/1984] ✓ Đã crawl 860 bài viết
+2026-02-03 09:03:26,386 - INFO - [899/1984] ✓ Đã crawl 880 bài viết
+2026-02-03 09:04:41,124 - INFO - [919/1984] ✓ Đã crawl 900 bài viết
+2026-02-03 09:04:41,202 - INFO - 💾 Saved: 900 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 09:05:55,368 - INFO - [939/1984] ✓ Đã crawl 920 bài viết
+2026-02-03 09:06:28,616 - INFO - [959/1984] ✓ Đã crawl 940 bài viết
+2026-02-03 09:06:49,739 - INFO - 💾 Saved: 950 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 09:07:14,621 - INFO - [979/1984] ✓ Đã crawl 960 bài viết
+2026-02-03 09:08:33,345 - INFO - [999/1984] ✓ Đã crawl 980 bài viết
+2026-02-03 09:09:44,985 - INFO - [1019/1984] ✓ Đã crawl 1000 bài viết
+2026-02-03 09:09:45,063 - INFO - 💾 Saved: 1000 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 09:11:00,684 - INFO - [1039/1984] ✓ Đã crawl 1020 bài viết
+2026-02-03 09:12:06,939 - INFO - [1059/1984] ✓ Đã crawl 1040 bài viết
+2026-02-03 09:12:34,609 - INFO - 💾 Saved: 1050 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 09:12:52,990 - INFO - [1079/1984] ✓ Đã crawl 1060 bài viết
+2026-02-03 09:13:40,863 - INFO - [1099/1984] ✓ Đã crawl 1080 bài viết
+2026-02-03 09:14:32,741 - INFO - [1119/1984] ✓ Đã crawl 1100 bài viết
+2026-02-03 09:14:32,822 - INFO - 💾 Saved: 1100 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 09:15:12,183 - INFO - [1139/1984] ✓ Đã crawl 1120 bài viết
+2026-02-03 09:15:58,389 - INFO - [1159/1984] ✓ Đã crawl 1140 bài viết
+2026-02-03 09:16:14,519 - INFO - 💾 Saved: 1150 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 09:16:37,387 - INFO - [1179/1984] ✓ Đã crawl 1160 bài viết
+2026-02-03 09:17:15,107 - INFO - [1199/1984] ✓ Đã crawl 1180 bài viết
+2026-02-03 09:17:52,665 - INFO - [1219/1984] ✓ Đã crawl 1200 bài viết
+2026-02-03 09:17:52,759 - INFO - 💾 Saved: 1200 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 09:18:29,852 - INFO - [1239/1984] ✓ Đã crawl 1220 bài viết
+2026-02-03 09:19:10,639 - INFO - [1259/1984] ✓ Đã crawl 1240 bài viết
+2026-02-03 09:19:30,435 - INFO - 💾 Saved: 1250 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 09:19:47,650 - INFO - [1279/1984] ✓ Đã crawl 1260 bài viết
+2026-02-03 09:20:33,481 - INFO - [1299/1984] ✓ Đã crawl 1280 bài viết
+2026-02-03 09:21:14,660 - INFO - [1319/1984] ✓ Đã crawl 1300 bài viết
+2026-02-03 09:21:14,764 - INFO - 💾 Saved: 1300 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 09:22:10,440 - INFO - [1339/1984] ✓ Đã crawl 1320 bài viết
+2026-02-03 09:22:59,475 - INFO - [1359/1984] ✓ Đã crawl 1340 bài viết
+2026-02-03 09:23:20,119 - INFO - 💾 Saved: 1350 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 09:23:40,242 - INFO - [1379/1984] ✓ Đã crawl 1360 bài viết
+2026-02-03 09:24:25,770 - INFO - [1399/1984] ✓ Đã crawl 1380 bài viết
+2026-02-03 09:25:12,119 - INFO - [1419/1984] ✓ Đã crawl 1400 bài viết
+2026-02-03 09:25:12,219 - INFO - 💾 Saved: 1400 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 09:25:47,829 - INFO - [1439/1984] ✓ Đã crawl 1420 bài viết
+2026-02-03 09:26:30,265 - INFO - [1459/1984] ✓ Đã crawl 1440 bài viết
+2026-02-03 09:28:35,177 - INFO - 💾 Saved: 1450 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 09:28:58,103 - INFO - [1482/1984] ✓ Đã crawl 1460 bài viết
+2026-02-03 09:30:06,757 - INFO - [1502/1984] ✓ Đã crawl 1480 bài viết
+2026-02-03 09:30:44,477 - INFO - [1522/1984] ✓ Đã crawl 1500 bài viết
+2026-02-03 09:30:44,687 - INFO - 💾 Saved: 1500 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 09:31:38,822 - INFO - [1542/1984] ✓ Đã crawl 1520 bài viết
+2026-02-03 09:32:19,764 - INFO - [1562/1984] ✓ Đã crawl 1540 bài viết
+2026-02-03 09:32:37,898 - INFO - 💾 Saved: 1550 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 09:32:56,521 - INFO - [1582/1984] ✓ Đã crawl 1560 bài viết
+2026-02-03 09:34:01,997 - INFO - [1603/1984] ✓ Đã crawl 1580 bài viết
+2026-02-03 09:35:06,310 - INFO - [1623/1984] ✓ Đã crawl 1600 bài viết
+2026-02-03 09:35:06,427 - INFO - 💾 Saved: 1600 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 09:35:53,127 - INFO - [1643/1984] ✓ Đã crawl 1620 bài viết
+2026-02-03 09:36:35,476 - INFO - [1663/1984] ✓ Đã crawl 1640 bài viết
+2026-02-03 09:37:02,122 - INFO - 💾 Saved: 1650 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 09:37:32,746 - INFO - [1683/1984] ✓ Đã crawl 1660 bài viết
+2026-02-03 09:38:40,103 - INFO - [1703/1984] ✓ Đã crawl 1680 bài viết
+2026-02-03 09:39:32,001 - INFO - [1723/1984] ✓ Đã crawl 1700 bài viết
+2026-02-03 09:39:32,122 - INFO - 💾 Saved: 1700 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 09:40:32,205 - INFO - [1743/1984] ✓ Đã crawl 1720 bài viết
+2026-02-03 09:41:18,751 - INFO - [1763/1984] ✓ Đã crawl 1740 bài viết
+2026-02-03 09:41:44,717 - INFO - 💾 Saved: 1750 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 09:42:12,950 - INFO - [1783/1984] ✓ Đã crawl 1760 bài viết
+2026-02-03 09:43:04,953 - INFO - [1805/1984] ✓ Đã crawl 1780 bài viết
+2026-02-03 09:44:00,233 - INFO - [1825/1984] ✓ Đã crawl 1800 bài viết
+2026-02-03 09:44:00,364 - INFO - 💾 Saved: 1800 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 09:44:41,041 - INFO - [1845/1984] ✓ Đã crawl 1820 bài viết
+2026-02-03 09:45:28,356 - INFO - [1865/1984] ✓ Đã crawl 1840 bài viết
+2026-02-03 09:45:48,541 - INFO - 💾 Saved: 1850 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 09:46:10,217 - INFO - [1885/1984] ✓ Đã crawl 1860 bài viết
+2026-02-03 09:46:52,659 - INFO - [1905/1984] ✓ Đã crawl 1880 bài viết
+2026-02-03 09:47:54,402 - INFO - [1926/1984] ✓ Đã crawl 1900 bài viết
+2026-02-03 09:47:54,598 - INFO - 💾 Saved: 1900 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 09:48:46,656 - INFO - [1946/1984] ✓ Đã crawl 1920 bài viết
+2026-02-03 09:49:26,064 - INFO - [1966/1984] ✓ Đã crawl 1940 bài viết
+2026-02-03 09:49:41,897 - INFO - 💾 Saved: 1950 articles -> hellobacsi_data_1\articles_1.json
+2026-02-03 09:50:06,540 - INFO - 💾 Saved: 1958 articles -> hellobacsi_data_1\articles_1.json

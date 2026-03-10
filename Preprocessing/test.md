@@ -1,0 +1,1 @@
+      Ketoconazol 2% là thuốc thuốc có hoạt tính kháng nấm mạnh được sử dụng để điều trị các bệnh nấm ở da và niêm mạc. Người bệnh nên tìm hiểu kỹ các thông tin về thuốc, đồng thời tham khảo ý kiến của bác sĩ trước khi sử dụng thuốc Ketoconazol 2% để điều trị bệnh.
