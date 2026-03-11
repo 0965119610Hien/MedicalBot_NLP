@@ -1,446 +1,523 @@
+"""
+Pipeline làm sạch dữ liệu y tế từ Vinmec và HelloBacSi
+=========================================================
+Chức năng chính:
+  1. Đọc dữ liệu thô từ cả 2 domain (Vinmec + HelloBacSi)
+  2. Loại bỏ URL, ký tự đặc biệt, markdown, khoảng trắng thừa
+  3. Tách từ dính nhau bằng từ điển tiếng Việt (regex + vocab)
+  4. Tokenize tiếng Việt đúng cách bằng underthesea (tách cụm từ)
+  5. Loại bỏ stopwords
+  6. Gộp tất cả dữ liệu đã làm sạch thành 1 file duy nhất
+  7. Xuất thống kê chi tiết
+
+Thư viện cần cài:
+  pip install underthesea
+"""
+
 import json
-from underthesea import word_tokenize
+import os
+import re
 from collections import Counter
+from underthesea import word_tokenize
 
-def build_vocabulary_from_data(json_files):
-    """
-    Xây dựng từ điển từ dữ liệu thực tế
-    """
-    print("\n[Xây dựng từ điển] Đọc tất cả dữ liệu...")
-    vocabulary = Counter()
-    
-    for json_file in json_files:
-        try:
-            with open(json_file, 'r', encoding='utf-8') as f:
-                data = json.load(f)
-            
-            for record in data:
-                for key, value in record.items():
-                    if isinstance(value, str) and value.strip():
-                        # Tách từ
-                        words = word_tokenize(value.lower())
-                        vocabulary.update(words)
-        except Exception as e:
-            print(f"  Lỗi khi đọc {json_file}: {e}")
-    
-    print(f"✓ Đã xây dựng từ điển với {len(vocabulary)} từ duy nhất")
-    return vocabulary
+# ============================================================
+# CẤU HÌNH ĐƯỜNG DẪN
+# ============================================================
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-def detect_typos(vocabulary, min_frequency=2):
-    """
-    Phát hiện từ có thể sai chính tả (xuất hiện ít, độ dài ngắn, có ký tự lạ)
-    """
-    potential_typos = {}
-    
-    for word, count in vocabulary.items():
-        # Bỏ qua từ xuất hiện nhiều (có thể là từ đúng)
-        if count < min_frequency:
-            # Kiểm tra các dấu hiệu sai chính tả
-            if (len(word) <= 2 or  # Từ quá ngắn
-                any(char.isdigit() for char in word) or  # Có số
-                word.startswith('_') or word.endswith('_')):  # Ký tự đặc biệt
-                potential_typos[word] = count
-    
-    return potential_typos
+# Vinmec
+VINMEC_DIR = os.path.join(BASE_DIR, '..', 'CrawlVinmec', 'vinmec_complete_data')
+VINMEC_FILES = {
+    'articles':      os.path.join(VINMEC_DIR, 'articles.json'),
+    'diseases':      os.path.join(VINMEC_DIR, 'diseases.json'),
+    'drugs':         os.path.join(VINMEC_DIR, 'drugs.json'),
+    'drug_qa_pairs': os.path.join(VINMEC_DIR, 'drug_qa_pairs.json'),
+}
 
-def normalize_medical_terms(text):
-    """
-    Chuẩn hóa các thuật ngữ y tế và viết tắt thường gặp
-    """
-    # Từ điển viết tắt y tế
-    abbreviations = {
-        'bs': 'bác_sĩ',
-        'bs.': 'bác_sĩ',
-        'bác sĩ': 'bác_sĩ',
-        'bv': 'bệnh_viện',
-        'bv.': 'bệnh_viện',
-        'bệnh viện': 'bệnh_viện',
-        'bn': 'bệnh_nhân',
-        'bn.': 'bệnh_nhân',
-        'bệnh nhân': 'bệnh_nhân',
-        'tp.hcm': 'thành_phố_hồ_chí_minh',
-        'tphcm': 'thành_phố_hồ_chí_minh',
-        'tp hcm': 'thành_phố_hồ_chí_minh',
-        'hn': 'hà_nội',
-        'vn': 'việt_nam',
-        'xn': 'xét_nghiệm',
-        'xn.': 'xét_nghiệm',
-        'xét nghiệm': 'xét_nghiệm',
-        'y tế': 'y_tế',
-        'sức khỏe': 'sức_khỏe',
-        'điều trị': 'điều_trị',
-        'chẩn đoán': 'chẩn_đoán',
-        'triệu chứng': 'triệu_chứng'
-    }
-    
-    for abbrev, full in abbreviations.items():
-        text = text.replace(abbrev, full)
-    
+# HelloBacSi
+HELLOBACSI_DIR = os.path.join(BASE_DIR, '..', 'CrawlHelloBacSi')
+HELLOBACSI_FOLDERS = {
+    'hellobacsi_data_1': 'articles_1.json',
+    'hellobacsi_data_2': 'articles_2.json',
+    'hellobacsi_data_3': 'articles_3.json',
+    'hellobacsi_data_4': 'articles_4.json',
+    'hellobacsi_data_5': 'articles_5.json',
+    'hellobacsi_data_7': 'articles_7.json',
+    'hellobacsi_data_8': 'articles_8.json',
+}
+
+STOPWORDS_PATH = os.path.join(BASE_DIR, 'vietnamese-stopwords.txt')
+
+# Output
+OUTPUT_DIR = BASE_DIR
+MERGED_OUTPUT = os.path.join(OUTPUT_DIR, 'merged_cleaned_data.json')
+MERGED_STATS  = os.path.join(OUTPUT_DIR, 'merged_cleaned_stats.json')
+
+# ============================================================
+# TỪ ĐIỂN Y TẾ - dùng để tách từ dính & chuẩn hóa
+# ============================================================
+MEDICAL_COMPOUND_WORDS = [
+    # Cụm 3 từ trở lên
+    'tác dụng phụ', 'điều trị bệnh', 'sử dụng thuốc',
+    'xét nghiệm máu', 'chẩn đoán bệnh', 'phòng ngừa bệnh',
+    'chế độ ăn', 'nguyên nhân gây', 'tăng nguy cơ',
+    'phương pháp điều trị', 'tham khảo ý kiến',
+    'cổ tử cung', 'đái tháo đường',
+
+    # Cụm 2 từ (y tế)
+    'bác sĩ', 'bệnh nhân', 'bệnh viện', 'bệnh lý',
+    'điều trị', 'triệu chứng', 'chẩn đoán', 'xét nghiệm',
+    'phẫu thuật', 'tác dụng', 'liều dùng', 'liều lượng',
+    'dược phẩm', 'dược sĩ', 'y tế', 'sức khỏe',
+    'huyết áp', 'tiêm chủng', 'kháng sinh', 'kháng thể',
+    'miễn dịch', 'ung thư', 'khối u', 'tế bào',
+    'hồng cầu', 'bạch cầu', 'tiểu cầu', 'đường huyết',
+    'tim mạch', 'hô hấp', 'tiêu hóa',
+    'thần kinh', 'xương khớp', 'da liễu', 'nội tiết',
+    'sinh sản', 'thai nhi', 'thai kỳ', 'sơ sinh',
+    'vắc xin', 'vi khuẩn',
+    'nhiễm trùng', 'viêm nhiễm', 'dị ứng', 'mãn tính',
+    'cấp tính', 'biến chứng', 'tái phát', 'di căn',
+    'truyền nhiễm', 'lây nhiễm', 'phục hồi', 'chức năng',
+    'tổn thương', 'chảy máu', 'xuất huyết', 'phù nề',
+    'suy giảm', 'tăng sinh', 'ác tính', 'lành tính',
+    'mô bệnh', 'giải phẫu', 'sinh thiết', 'nội soi',
+    'siêu âm', 'chụp cắt', 'cộng hưởng', 'phóng xạ',
+    'hóa trị', 'xạ trị', 'liệu pháp', 'phác đồ',
+    'đề kháng', 'kháng nấm', 'kháng viêm',
+    'suy thận', 'suy gan', 'suy tim', 'suy hô hấp',
+    'tiểu đường',
+    'hệ thống', 'cơ chế', 'tác nhân', 'yếu tố',
+    'nguy cơ', 'dấu hiệu', 'chỉ định', 'chống chỉ',
+    'thận trọng', 'quá mẫn', 'tương tác', 'hấp thu',
+    'chuyển hóa', 'bài tiết', 'nồng độ', 'tác động',
+    'cân nhắc', 'theo dõi', 'kiểm tra', 'đánh giá',
+    'người bệnh', 'người lớn', 'trẻ em', 'phụ nữ',
+    'mang thai', 'cho con bú', 'người già',
+]
+
+ABBREVIATION_MAP = {
+    'bs': 'bác sĩ',      'bs.': 'bác sĩ',
+    'bv': 'bệnh viện',    'bv.': 'bệnh viện',
+    'bn': 'bệnh nhân',    'bn.': 'bệnh nhân',
+    'xn': 'xét nghiệm',   'xn.': 'xét nghiệm',
+    'tp.hcm': 'thành phố hồ chí minh',
+    'tphcm': 'thành phố hồ chí minh',
+    'tp hcm': 'thành phố hồ chí minh',
+    'hn': 'hà nội',
+    'vn': 'việt nam',
+}
+
+# ============================================================
+# HÀM TIỆN ÍCH
+# ============================================================
+
+def load_stopwords(path):
+    """Đọc danh sách stop words từ file."""
+    with open(path, 'r', encoding='utf-8') as f:
+        return set(line.strip() for line in f if line.strip())
+
+
+def remove_urls(text):
+    """Loại bỏ tất cả các dạng URL khỏi văn bản."""
+    # URL chuẩn
+    text = re.sub(r'https?://\S+', '', text)
+    # www.xxx
+    text = re.sub(r'www\.\S+', '', text)
+    # URL bị dính (httpswwwvinmeccomvie...)
+    text = re.sub(r'https?[a-z0-9./\-_]+(?:com|vn|org|net)[a-z0-9./\-_]*', '', text, flags=re.IGNORECASE)
     return text
 
-def analyze_raw_data(json_file_path):
-    """
-    Thống kê dữ liệu gốc chưa xử lý
-    """
-    print(f"\nTHỐNG KÊ DỮ LIỆU GỐC: {json_file_path}")
-    print("-" * 80)
-    
-    with open(json_file_path, 'r', encoding='utf-8') as f:
-        data = json.load(f)
-    
-    # Thống kê cơ bản
-    total_records = len(data)
-    print(f"Tổng số bản ghi: {total_records:,}")
-    
-    # Thống kê độ dài văn bản
-    text_lengths = []
-    total_chars = 0
-    field_counts = Counter()
-    
-    for record in data:
-        record_text = ""
-        for key, value in record.items():
-            if isinstance(value, str) and value.strip():
-                record_text += value + " "
-                field_counts[key] += 1
-        
-        text_length = len(record_text)
-        text_lengths.append(text_length)
-        total_chars += text_length
-    
-    print(f"Tổng số ký tự: {total_chars:,}")
-    print(f"Trung bình ký tự/bản ghi: {total_chars/total_records:.2f}")
-    print(f"Bản ghi ngắn nhất: {min(text_lengths):,} ký tự")
-    print(f"Bản ghi dài nhất: {max(text_lengths):,} ký tự")
-    
-    # Thống kê các trường dữ liệu
-    print(f"\nCác trường dữ liệu phổ biến:")
-    for i, (field, count) in enumerate(field_counts.most_common(10), 1):
-        print(f"  {i}. '{field}': {count:,} bản ghi ({count/total_records*100:.1f}%)")
-    
-    return {
-        'total_records': total_records,
-        'total_chars': total_chars,
-        'avg_chars': total_chars/total_records,
-        'min_chars': min(text_lengths),
-        'max_chars': max(text_lengths),
-        'field_counts': dict(field_counts)
-    }
 
-def analyze_processed_data(processed_data, output_stats_file):
+def remove_markdown(text):
+    """Loại bỏ cú pháp markdown."""
+    text = re.sub(r'#{1,6}\s*', '', text)
+    text = re.sub(r'\*{1,2}(.+?)\*{1,2}', r'\1', text)
+    text = re.sub(r'\[([^\]]*)\]\([^)]*\)', r'\1', text)
+    text = re.sub(r'\[article-yoast-faqs\]', '', text)
+    return text
+
+
+def remove_crawl_metadata(text):
+    """Loại bỏ metadata crawl: timestamps, date patterns."""
+    text = re.sub(r'\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}:\d{2}[\.\d]*', '', text)
+    text = re.sub(r'\b\d{8}\b', '', text)
+    text = re.sub(r'\b\d{1,2}/\d{1,2}/\d{4}\b', '', text)
+    text = re.sub(r'\bt\d{10,}\b', '', text, flags=re.IGNORECASE)
+    return text
+
+
+def normalize_whitespace(text):
+    """Chuẩn hóa khoảng trắng."""
+    text = text.replace('\n', ' ').replace('\r', ' ').replace('\t', ' ')
+    text = re.sub(r'\s+', ' ', text)
+    return text.strip()
+
+
+def remove_special_chars(text):
+    """Loại bỏ ký tự đặc biệt, giữ lại chữ, số, khoảng trắng."""
+    text = re.sub(r'[^\w\s]', ' ', text, flags=re.UNICODE)
+    text = re.sub(r'(?<!\w)_|_(?!\w)', ' ', text)
+    return text
+
+
+def expand_abbreviations(text):
+    """Thay thế viết tắt y tế bằng dạng đầy đủ."""
+    for abbrev, full in ABBREVIATION_MAP.items():
+        pattern = re.compile(r'\b' + re.escape(abbrev) + r'\b', re.IGNORECASE)
+        text = pattern.sub(full, text)
+    return text
+
+
+def build_split_patterns():
     """
-    Thống kê dữ liệu đã xử lý
+    Xây dựng regex patterns để tách từ dính nhau.
+    Ví dụ: 'điềutrị' → 'điều trị', 'bácsĩ' → 'bác sĩ'
     """
-    print(f"\nTHỐNG KÊ DỮ LIỆU ĐÃ XỬ LÝ")
-    print("-" * 80)
-    
-    # Thu thập tất cả các từ
+    patterns = []
+    for compound in MEDICAL_COMPOUND_WORDS:
+        parts = compound.split()
+        if len(parts) >= 2:
+            joined = ''.join(parts)
+            if len(joined) > 3:
+                patterns.append((joined, compound))
+    # Ưu tiên match dài trước
+    patterns.sort(key=lambda x: len(x[0]), reverse=True)
+    return patterns
+
+
+def split_stuck_words(text, patterns):
+    """Tách các từ bị dính nhau dựa trên từ điển."""
+    for joined, spaced in patterns:
+        text = re.sub(re.escape(joined), spaced, text, flags=re.IGNORECASE)
+    return text
+
+
+def tokenize_vietnamese(text):
+    """
+    Tách từ tiếng Việt bằng underthesea.
+    Tự động nhóm cụm từ: 'bác sĩ' → 'bác_sĩ', 'bệnh nhân' → 'bệnh_nhân'
+    """
+    return word_tokenize(text, format="text")
+
+
+# ============================================================
+# TRÍCH XUẤT VĂN BẢN TỪ CÁC NGUỒN DỮ LIỆU
+# ============================================================
+
+def extract_text_vinmec_articles(record):
+    parts = []
+    for field in ['tieu_de', 'mo_ta']:
+        val = record.get(field, '')
+        if isinstance(val, str) and val.strip():
+            parts.append(val.strip())
+    phan_doan = record.get('phan_doan', [])
+    if isinstance(phan_doan, list):
+        for section in phan_doan:
+            if isinstance(section, dict):
+                title = section.get('title', '')
+                if title and isinstance(title, str):
+                    parts.append(title.strip())
+                content = section.get('content', [])
+                if isinstance(content, list):
+                    for c in content:
+                        if isinstance(c, str) and c.strip():
+                            parts.append(c.strip())
+                elif isinstance(content, str) and content.strip():
+                    parts.append(content.strip())
+    return ' '.join(parts)
+
+
+def extract_text_vinmec_diseases(record):
+    fields = ['nguyen_nhan', 'yeu_to_nguy_co', 'trieu_chung',
+              'chan_doan', 'dieu_tri', 'phong_ngua']
+    parts = []
+    for field in fields:
+        val = record.get(field, '')
+        if isinstance(val, str) and val.strip():
+            parts.append(val.strip())
+    return ' '.join(parts)
+
+
+def extract_text_vinmec_drugs(record):
+    """Bỏ trường full_text để tránh trùng nội dung."""
+    fields = ['name', 'formulation', 'drug_group', 'indication',
+              'contraindication', 'precaution', 'side_effects',
+              'dosage', 'usage_notes']
+    parts = []
+    for field in fields:
+        val = record.get(field, '')
+        if isinstance(val, str) and val.strip():
+            parts.append(val.strip())
+    return ' '.join(parts)
+
+
+def extract_text_vinmec_drug_qa(record):
+    parts = []
+    for field in ['question', 'answer']:
+        val = record.get(field, '')
+        if isinstance(val, str) and val.strip():
+            parts.append(val.strip())
+    return ' '.join(parts)
+
+
+def extract_text_hellobacsi(record):
+    parts = []
+    for field in ['title', 'content']:
+        val = record.get(field, '')
+        if isinstance(val, str) and val.strip():
+            parts.append(val.strip())
+    return ' '.join(parts)
+
+
+# ============================================================
+# ĐỌC DỮ LIỆU THÔ
+# ============================================================
+
+def load_vinmec_data():
+    results = []
+    extractors = {
+        'articles':      extract_text_vinmec_articles,
+        'diseases':      extract_text_vinmec_diseases,
+        'drugs':         extract_text_vinmec_drugs,
+        'drug_qa_pairs': extract_text_vinmec_drug_qa,
+    }
+    for source_name, file_path in VINMEC_FILES.items():
+        if not os.path.exists(file_path):
+            print(f"  [SKIP] Không tìm thấy: {file_path}")
+            continue
+        with open(file_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        extractor = extractors[source_name]
+        count = 0
+        for record in data:
+            text = extractor(record)
+            if text.strip():
+                results.append({
+                    'raw_text': text,
+                    'domain': 'vinmec',
+                    'source': source_name,
+                    'url': record.get('url', ''),
+                })
+                count += 1
+        print(f"  ✓ Vinmec/{source_name}: {count} bản ghi")
+    return results
+
+
+def load_hellobacsi_data():
+    results = []
+    seen_urls = set()
+    total_raw = 0
+    total_dup = 0
+    for folder, filename in HELLOBACSI_FOLDERS.items():
+        filepath = os.path.join(HELLOBACSI_DIR, folder, filename)
+        if not os.path.exists(filepath):
+            print(f"  [SKIP] Không tìm thấy: {filepath}")
+            continue
+        with open(filepath, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        added = 0
+        duplicates = 0
+        for record in data:
+            total_raw += 1
+            url = record.get('url', '').strip()
+            if url and url in seen_urls:
+                duplicates += 1
+                total_dup += 1
+                continue
+            if url:
+                seen_urls.add(url)
+            text = extract_text_hellobacsi(record)
+            if text.strip():
+                results.append({
+                    'raw_text': text,
+                    'domain': 'hellobacsi',
+                    'source': folder,
+                    'url': url,
+                })
+                added += 1
+        print(f"  ✓ HelloBacSi/{folder}: {len(data)} bài → {added} (bỏ {duplicates} trùng)")
+    print(f"  → Tổng HelloBacSi: {len(results)} bài (loại {total_dup} trùng từ {total_raw} gốc)")
+    return results
+
+
+# ============================================================
+# PIPELINE LÀM SẠCH
+# ============================================================
+
+def clean_text(raw_text, split_patterns, stop_words):
+    """
+    Pipeline làm sạch 1 đoạn văn bản:
+      1. Loại bỏ URL
+      2. Loại bỏ markdown
+      3. Loại bỏ metadata crawl (timestamps, IDs)
+      4. Chuyển chữ thường
+      5. Mở rộng viết tắt
+      6. Tách từ dính nhau (dictionary-based)
+      7. Loại bỏ ký tự đặc biệt
+      8. Chuẩn hóa khoảng trắng
+      9. Tokenize tiếng Việt (underthesea) → tách cụm từ
+     10. Loại bỏ stopwords + từ quá ngắn + số thuần
+    """
+    text = remove_urls(raw_text)
+    text = remove_markdown(text)
+    text = remove_crawl_metadata(text)
+    text = text.lower()
+    text = expand_abbreviations(text)
+    text = split_stuck_words(text, split_patterns)
+    text = remove_special_chars(text)
+    text = normalize_whitespace(text)
+    text = tokenize_vietnamese(text)
+
+    tokens = text.split()
+    filtered = []
+    for token in tokens:
+        t = token.strip()
+        if not t:
+            continue
+        t_check = t.replace('_', ' ')
+        if t_check in stop_words or t in stop_words:
+            continue
+        if len(t) <= 1:
+            continue
+        if re.match(r'^\d+$', t):
+            continue
+        filtered.append(t)
+
+    return ' '.join(filtered)
+
+
+# ============================================================
+# HÀM CHÍNH
+# ============================================================
+
+def main():
+    print("=" * 70)
+    print("   PIPELINE LÀM SẠCH DỮ LIỆU Y TẾ (Vinmec + HelloBacSi)")
+    print("=" * 70)
+
+    # ── Bước 1: Đọc dữ liệu thô ──
+    print("\n[1/5] Đọc dữ liệu thô...")
+    vinmec_data = load_vinmec_data()
+    hellobacsi_data = load_hellobacsi_data()
+    all_raw = vinmec_data + hellobacsi_data
+    print(f"\n→ Tổng cộng: {len(all_raw)} bản ghi thô")
+
+    # ── Bước 2: Chuẩn bị công cụ ──
+    print("\n[2/5] Chuẩn bị công cụ làm sạch...")
+    stop_words = load_stopwords(STOPWORDS_PATH)
+    print(f"  ✓ {len(stop_words)} stopwords")
+    split_patterns = build_split_patterns()
+    print(f"  ✓ {len(split_patterns)} patterns tách từ dính")
+
+    # ── Bước 3: Làm sạch ──
+    print("\n[3/5] Làm sạch dữ liệu...")
+    cleaned_records = []
+    for idx, record in enumerate(all_raw):
+        cleaned_text = clean_text(record['raw_text'], split_patterns, stop_words)
+        words = cleaned_text.split()
+        if len(words) < 3:
+            continue
+        cleaned_records.append({
+            'id': len(cleaned_records) + 1,
+            'domain': record['domain'],
+            'source': record['source'],
+            'cleaned_text': cleaned_text,
+            'word_count': len(words),
+        })
+        if (idx + 1) % 500 == 0:
+            print(f"  Đã xử lý {idx + 1}/{len(all_raw)} bản ghi...")
+
+    print(f"  ✓ Hoàn thành: {len(cleaned_records)} bản ghi "
+          f"(bỏ {len(all_raw) - len(cleaned_records)} quá ngắn)")
+
+    # ── Bước 4: Lưu file gộp ──
+    print("\n[4/5] Lưu dữ liệu đã làm sạch...")
+    with open(MERGED_OUTPUT, 'w', encoding='utf-8') as f:
+        json.dump(cleaned_records, f, ensure_ascii=False, indent=2)
+    print(f"  ✓ Đã lưu: {os.path.basename(MERGED_OUTPUT)}")
+
+    # ── Bước 5: Thống kê ──
+    print("\n[5/5] Tính thống kê...")
     all_words = []
-    for record in processed_data:
-        words = record['cleaned_text'].split()
-        all_words.extend(words)
-    
-    # Thống kê từ
+    for record in cleaned_records:
+        all_words.extend(record['cleaned_text'].split())
+
     word_freq = Counter(all_words)
     total_words = len(all_words)
     unique_words = len(word_freq)
-    
-    print(f"Tổng số từ: {total_words:,}")
-    print(f"Số từ duy nhất: {unique_words:,}")
-    print(f"Tỷ lệ từ duy nhất: {unique_words/total_words*100:.2f}%")
-    
-    # Thống kê độ dài từ
-    word_lengths = [len(word) for word in all_words]
-    avg_word_length = sum(word_lengths) / len(word_lengths) if word_lengths else 0
-    print(f"Độ dài trung bình của từ: {avg_word_length:.2f} ký tự")
-    
-    # Top từ phổ biến
-    print(f"\nTop 20 từ phổ biến nhất:")
-    for i, (word, count) in enumerate(word_freq.most_common(20), 1):
-        print(f"  {i}. '{word}': {count:,} lần ({count/total_words*100:.2f}%)")
-    
-    # Phân phối tần suất
-    freq_distribution = Counter(word_freq.values())
-    print(f"\nPhân phối tần suất:")
-    print(f"  Từ xuất hiện 1 lần: {freq_distribution[1]:,} từ ({freq_distribution[1]/unique_words*100:.2f}%)")
-    print(f"  Từ xuất hiện 2-5 lần: {sum(freq_distribution[i] for i in range(2, 6)):,} từ")
-    print(f"  Từ xuất hiện 6-10 lần: {sum(freq_distribution[i] for i in range(6, 11)):,} từ")
-    print(f"  Từ xuất hiện >10 lần: {sum(freq_distribution[i] for i in range(11, max(freq_distribution.keys())+1)):,} từ")
-    
-    # Thống kê theo bản ghi
-    word_counts = [r['word_count'] for r in processed_data]
-    print(f"\nThống kê theo bản ghi:")
-    print(f"  Trung bình từ/bản ghi: {sum(word_counts)/len(word_counts):.2f}")
-    print(f"  Bản ghi ít từ nhất: {min(word_counts):,} từ")
-    print(f"  Bản ghi nhiều từ nhất: {max(word_counts):,} từ")
-    
-    # Lưu thống kê chi tiết
+    word_counts = [r['word_count'] for r in cleaned_records]
+
+    domain_stats = {}
+    for record in cleaned_records:
+        d = record['domain']
+        if d not in domain_stats:
+            domain_stats[d] = {'count': 0, 'total_words': 0}
+        domain_stats[d]['count'] += 1
+        domain_stats[d]['total_words'] += record['word_count']
+
+    source_stats = {}
+    for record in cleaned_records:
+        s = f"{record['domain']}/{record['source']}"
+        if s not in source_stats:
+            source_stats[s] = {'count': 0, 'total_words': 0}
+        source_stats[s]['count'] += 1
+        source_stats[s]['total_words'] += record['word_count']
+
     stats = {
+        'total_records': len(cleaned_records),
         'total_words': total_words,
         'unique_words': unique_words,
-        'avg_word_length': avg_word_length,
+        'avg_words_per_record': round(sum(word_counts) / len(word_counts), 2) if word_counts else 0,
+        'min_words': min(word_counts) if word_counts else 0,
+        'max_words': max(word_counts) if word_counts else 0,
+        'domain_stats': domain_stats,
+        'source_stats': source_stats,
         'top_50_words': dict(word_freq.most_common(50)),
-        'frequency_distribution': dict(freq_distribution),
-        'avg_words_per_record': sum(word_counts)/len(word_counts),
-        'min_words': min(word_counts),
-        'max_words': max(word_counts)
     }
-    
-    with open(output_stats_file, 'w', encoding='utf-8') as f:
+
+    with open(MERGED_STATS, 'w', encoding='utf-8') as f:
         json.dump(stats, f, ensure_ascii=False, indent=2)
-    
-    print(f"\n✓ Đã lưu thống kê chi tiết vào '{output_stats_file}'")
-    
-    return stats
+    print(f"  ✓ Đã lưu: {os.path.basename(MERGED_STATS)}")
 
-def process_json_data(json_file_path, stopwords_path, output_file_path, vocabulary=None, skip_fields=None):
-    """
-    Đọc file JSON, gộp tất cả trường văn bản, làm sạch và lưu kết quả
-    
-    Args:
-        json_file_path: Đường dẫn đến file JSON
-        stopwords_path: Đường dẫn đến file stop words
-        output_file_path: Đường dẫn file output
-        vocabulary: Từ điển từ dữ liệu (nếu có)
-        skip_fields: Danh sách tên trường cần bỏ qua khi gộp văn bản.
-                     Mặc định bỏ qua 'full_text' vì đây là bản tổng hợp
-                     của các trường khác (tránh double content).
-    """
-    if skip_fields is None:
-        skip_fields = ['full_text']
-    print(f"\n{'='*80}")
-    print(f"XỬ LÝ FILE: {json_file_path}")
-    print(f"{'='*80}")
-    
-    # Bước 1: Đọc file JSON
-    print("\n[Bước 1] Đọc file JSON...")
-    with open(json_file_path, 'r', encoding='utf-8') as f:
-        data = json.load(f)
-    print(f"✓ Đã đọc {len(data)} bản ghi")
-    
-    # Bước 2: Đọc stop words
-    print("\n[Bước 2] Đọc danh sách stop words...")
-    with open(stopwords_path, 'r', encoding='utf-8') as f:
-        stop_words = set(f.read().splitlines())
-    print(f"✓ Đã tải {len(stop_words)} stop words")
-    
-    # Bước 3: Xử lý từng bản ghi
-    print("\n[Bước 3] Xử lý từng bản ghi...")
-    processed_data = []
-    
-    for idx, record in enumerate(data):
-        # Gộp tất cả các trường văn bản (bỏ qua skip_fields)
-        text_fields = []
-        for key, value in record.items():
-            if key in skip_fields:
-                continue
-            if isinstance(value, str) and value.strip():
-                text_fields.append(value)
-        
-        # Nối tất cả văn bản lại
-        full_text = ' '.join(text_fields)
-        
-        # Chuyển chữ thường
-        text_lower = full_text.lower()
-        
-        # Chuẩn hóa thuật ngữ y tế
-        text_normalized = normalize_medical_terms(text_lower)
-        
-        # Loại bỏ dấu câu
-        punctuation_to_remove = '''!()-[]{};:'"\,<>./?@#$^&*_~'''
-        text_no_punct = ''.join(char for char in text_normalized if char not in punctuation_to_remove)
-        
-        # Tách từ (Word Tokenization)
-        words = word_tokenize(text_no_punct)
-        
-        # Loại bỏ stop words và từ rỗng
-        filtered_words = [word for word in words if word not in stop_words and word.strip() and len(word) > 1]
-        
-        # Lưu kết quả
-        processed_record = {
-            'id': idx + 1,
-            'url': record.get('url', ''),
-            'original_text': full_text[:500],  # Chỉ lưu 500 ký tự đầu
-            'cleaned_text': ' '.join(filtered_words),
-            'word_count': len(filtered_words)
-        }
-        processed_data.append(processed_record)
-        
-        if (idx + 1) % 100 == 0:
-            print(f"  Đã xử lý {idx + 1}/{len(data)} bản ghi...")
-    
-    print(f"✓ Hoàn thành xử lý {len(processed_data)} bản ghi")
-    
-    # Bước 4: Lưu kết quả
-    print(f"\n[Bước 4] Lưu kết quả vào {output_file_path}...")
-    with open(output_file_path, 'w', encoding='utf-8') as f:
-        json.dump(processed_data, f, ensure_ascii=False, indent=2)
-    print("✓ Đã lưu file thành công")
-    
-    # Thống kê
-    print(f"\n{'='*80}")
-    print("THỐNG KÊ")
-    print(f"{'='*80}")
-    total_words = sum(r['word_count'] for r in processed_data)
-    avg_words = total_words / len(processed_data) if processed_data else 0
-    print(f"Tổng số từ: {total_words:,}")
-    print(f"Trung bình từ/bản ghi: {avg_words:.2f}")
-    if processed_data:
-        print(f"Bản ghi ít từ nhất: {min(r['word_count'] for r in processed_data)}")
-        print(f"Bản ghi nhiều từ nhất: {max(r['word_count'] for r in processed_data)}")
-    
-    return processed_data
+    # ── In kết quả ──
+    print(f"\n{'=' * 70}")
+    print("KẾT QUẢ")
+    print(f"{'=' * 70}")
+    print(f"  Tổng bản ghi     : {len(cleaned_records):,}")
+    print(f"  Tổng từ           : {total_words:,}")
+    print(f"  Từ duy nhất       : {unique_words:,}")
+    print(f"  TB từ/bản ghi     : {stats['avg_words_per_record']}")
+    print(f"  Min/Max từ        : {stats['min_words']}/{stats['max_words']}")
 
-def main():
-    """Hàm chính để chạy chương trình"""
-    print("\nBẮT ĐẦU XỬ LÝ DỮ LIỆU...")
-    
-    # Danh sách các file JSON từ Vinmec
-    # Lưu ý: drugs.json có trường 'full_text' là bản tổng hợp của tất cả
-    # các trường khác → process_json_data sẽ tự động bỏ qua để tránh double content
-    json_files = [
-        '../CrawlVinmec/vinmec_complete_data/diseases.json',
-        '../CrawlVinmec/vinmec_complete_data/articles.json',
-        '../CrawlVinmec/vinmec_complete_data/drug_qa_pairs.json',
-        '../CrawlVinmec/vinmec_complete_data/drugs.json',
-    ]
-    
-    # ========== PHẦN 1: THỐNG KÊ DỮ LIỆU GỐC ==========
-    print("\n" + "="*80)
-    print("PHẦN 1: THỐNG KÊ DỮ LIỆU THU THẬP (DỮ LIỆU GỐC)")
-    print("="*80)
-    
-    raw_stats = {}
-    for json_file in json_files:
-        stats = analyze_raw_data(json_file)
-        file_name = json_file.split('/')[-1]
-        raw_stats[file_name] = stats
-    
-    # Tổng hợp thống kê dữ liệu gốc
-    print(f"\n" + "="*80)
-    print("TỔNG HỢP DỮ LIỆU GỐC")
-    print("="*80)
-    total_raw_records = sum(s['total_records'] for s in raw_stats.values())
-    total_raw_chars = sum(s['total_chars'] for s in raw_stats.values())
-    print(f"Tổng số bản ghi: {total_raw_records:,}")
-    print(f"Tổng số ký tự: {total_raw_chars:,}")
-    print(f"Trung bình ký tự/bản ghi: {total_raw_chars/total_raw_records:.2f}")
-    
-    # Lưu thống kê dữ liệu gốc
-    with open('raw_data_statistics.json', 'w', encoding='utf-8') as f:
-        json.dump(raw_stats, f, ensure_ascii=False, indent=2)
-    print("\n✓ Đã lưu thống kê dữ liệu gốc vào 'raw_data_statistics.json'")
-    
-    # ========== PHẦN 2: XÂY DỰNG TỪ ĐIỂN VÀ PHÁT HIỆN LỖI ==========
-    print("\n" + "="*80)
-    print("PHẦN 2: PHÂN TÍCH TỪ ĐIỂN VÀ PHÁT HIỆN LỖI CHÍNH TẢ")
-    print("="*80)
-    vocabulary = build_vocabulary_from_data(json_files)
-    
-    # Phát hiện từ có thể sai chính tả
-    potential_typos = detect_typos(vocabulary, min_frequency=3)
-    print(f"\n✓ Phát hiện {len(potential_typos)} từ có thể sai chính tả")
-    print("\nTop 20 từ nghi ngờ sai chính tả:")
-    for i, (word, count) in enumerate(sorted(potential_typos.items(), key=lambda x: x[1], reverse=True)[:20], 1):
-        print(f"  {i}. '{word}' xuất hiện {count} lần")
-    
-    # Lưu danh sách từ nghi ngờ sai
-    with open('potential_typos.json', 'w', encoding='utf-8') as f:
-        json.dump(potential_typos, f, ensure_ascii=False, indent=2)
-    print("\n✓ Đã lưu danh sách từ nghi ngờ vào 'potential_typos.json'")
-    
-    # ========== PHẦN 3: XỬ LÝ VÀ LÀM SẠCH DỮ LIỆU ==========
-    print("\n" + "="*80)
-    print("PHẦN 3: XỬ LÝ VÀ LÀM SẠCH DỮ LIỆU")
-    print("="*80)
-    
-    # Xử lý file diseases.json
-    diseases_data = process_json_data(
-        json_file_path='../CrawlVinmec/vinmec_complete_data/diseases.json',
-        stopwords_path='vietnamese-stopwords.txt',
-        output_file_path='cleaned_diseases.json',
-        vocabulary=vocabulary
-    )
-    
-    # Xử lý file articles.json
-    articles_data = process_json_data(
-        json_file_path='../CrawlVinmec/vinmec_complete_data/articles.json',
-        stopwords_path='vietnamese-stopwords.txt',
-        output_file_path='cleaned_articles.json',
-        vocabulary=vocabulary
-    )
-    
-    # Xử lý file drug_qa_pairs.json
-    drug_qa_data = process_json_data(
-        json_file_path='../CrawlVinmec/vinmec_complete_data/drug_qa_pairs.json',
-        stopwords_path='vietnamese-stopwords.txt',
-        output_file_path='cleaned_drug_qa_pairs.json',
-        vocabulary=vocabulary
-    )
+    print(f"\n  Theo domain:")
+    for d, ds in domain_stats.items():
+        print(f"    {d}: {ds['count']:,} bản ghi, {ds['total_words']:,} từ")
 
-    # Xử lý file drugs.json (thông tin thuốc chi tiết)
-    # skip_fields mặc định đã bỏ 'full_text' để tránh double content
-    drugs_data = process_json_data(
-        json_file_path='../CrawlVinmec/vinmec_complete_data/drugs.json',
-        stopwords_path='vietnamese-stopwords.txt',
-        output_file_path='cleaned_drugs.json',
-        vocabulary=vocabulary
-    )
-    
-    # ========== PHẦN 4: THỐNG KÊ DỮ LIỆU ĐÃ XỬ LÝ ==========
-    print("\n" + "="*80)
-    print("PHẦN 4: THỐNG KÊ DỮ LIỆU ĐÃ XỬ LÝ")
-    print("="*80)
-    
-    # Thống kê từng file
-    diseases_stats = analyze_processed_data(diseases_data, 'cleaned_diseases_stats.json')
-    articles_stats = analyze_processed_data(articles_data, 'cleaned_articles_stats.json')
-    drug_qa_stats = analyze_processed_data(drug_qa_data, 'cleaned_drug_qa_pairs_stats.json')
-    drugs_stats = analyze_processed_data(drugs_data, 'cleaned_drugs_stats.json')
-    
-    # Tổng hợp thống kê
-    print(f"\n" + "="*80)
-    print("TỔNG HỢP DỮ LIỆU ĐÃ XỬ LÝ")
-    print("="*80)
-    total_processed_words = (
-        diseases_stats['total_words'] + articles_stats['total_words'] +
-        drug_qa_stats['total_words'] + drugs_stats['total_words']
-    )
-    total_unique_words = (
-        diseases_stats['unique_words'] + articles_stats['unique_words'] +
-        drug_qa_stats['unique_words'] + drugs_stats['unique_words']
-    )
-    print(f"Tổng số từ đã xử lý: {total_processed_words:,}")
-    print(f"Tổng số từ duy nhất: {total_unique_words:,}")
-    
-    # So sánh trước và sau xử lý
-    print(f"\n" + "="*80)
-    print("SO SÁNH TRƯỚC VÀ SAU XỬ LÝ")
-    print("="*80)
-    total_records_processed = len(diseases_data) + len(articles_data) + len(drug_qa_data) + len(drugs_data)
-    print(f"Số bản ghi ban đầu: {total_raw_records:,}")
-    print(f"Số bản ghi sau xử lý: {total_records_processed:,}")
-    print(f"Số ký tự ban đầu: {total_raw_chars:,}")
-    print(f"Số từ sau xử lý: {total_processed_words:,}")
-    reduction_rate = (1 - total_processed_words / (total_raw_chars/5)) * 100  # Ước tính
-    print(f"Tỷ lệ giảm dữ liệu: ~{reduction_rate:.1f}%")
-    
-    print("\nHOÀN THÀNH TẤT CẢ!")
-    print(f"\nĐã tạo các file:")
-    print(f"  Dữ liệu đã làm sạch:")
-    print(f"     - cleaned_diseases.json")
-    print(f"     - cleaned_articles.json")
-    print(f"     - cleaned_drug_qa_pairs.json")
-    print(f"     - cleaned_drugs.json          ← MỚI: thông tin thuốc chi tiết")
-    print(f"  Thống kê:")
-    print(f"     - raw_data_statistics.json (thống kê dữ liệu gốc)")
-    print(f"     - cleaned_diseases_stats.json")
-    print(f"     - cleaned_articles_stats.json")
-    print(f"     - cleaned_drug_qa_pairs_stats.json")
-    print(f"     - cleaned_drugs_stats.json    ← MỚI")
-    print(f"  Phân tích:")
-    print(f"     - potential_typos.json (từ nghi ngờ sai chính tả)")
+    print(f"\n  Theo source:")
+    for s, ss in source_stats.items():
+        print(f"    {s}: {ss['count']:,} bản ghi, {ss['total_words']:,} từ")
+
+    print(f"\n  Top 20 từ:")
+    for i, (word, count) in enumerate(word_freq.most_common(20), 1):
+        print(f"    {i:2}. {word:<20s} {count:>8,} lần")
+
+    print(f"\nOutput files:")
+    print(f"  → {MERGED_OUTPUT}")
+    print(f"  → {MERGED_STATS}")
+
+    # Hiển thị mẫu
+    print(f"\n{'=' * 70}")
+    print("MẪU DỮ LIỆU ĐÃ LÀM SẠCH (3 bản ghi đầu)")
+    print(f"{'=' * 70}")
+    for record in cleaned_records[:3]:
+        print(f"\n  [ID {record['id']}] ({record['domain']}/{record['source']})")
+        text_preview = record['cleaned_text'][:200]
+        print(f"  {text_preview}...")
+        print(f"  → {record['word_count']} từ")
+
+    print("\n✓ HOÀN THÀNH!")
+
 
 if __name__ == "__main__":
     main()
-

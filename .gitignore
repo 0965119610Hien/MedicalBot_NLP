@@ -1,0 +1,11 @@
+*.md
+*.docx
+*.pdf
+*.log
+*.tmp
+.DS_Store
+node_modules/
+dist/
+*.png
+*.jpg
+*.jpeg

@@ -1,4 +1,116 @@
 {
-  "total_records": 12018,
-  "total_words": 9744309
+  "total_records": 12017,
+  "total_words": 8843408,
+  "unique_words": 176905,
+  "avg_words_per_record": 735.91,
+  "min_words": 6,
+  "max_words": 75197,
+  "domain_stats": {
+    "vinmec": {
+      "count": 3338,
+      "total_words": 2845117
+    },
+    "hellobacsi": {
+      "count": 8679,
+      "total_words": 5998291
+    }
+  },
+  "source_stats": {
+    "vinmec/articles": {
+      "count": 2215,
+      "total_words": 2396128
+    },
+    "vinmec/diseases": {
+      "count": 386,
+      "total_words": 400322
+    },
+    "vinmec/drugs": {
+      "count": 191,
+      "total_words": 30720
+    },
+    "vinmec/drug_qa_pairs": {
+      "count": 546,
+      "total_words": 17947
+    },
+    "hellobacsi/hellobacsi_data_1": {
+      "count": 1958,
+      "total_words": 1531380
+    },
+    "hellobacsi/hellobacsi_data_2": {
+      "count": 264,
+      "total_words": 174133
+    },
+    "hellobacsi/hellobacsi_data_3": {
+      "count": 2021,
+      "total_words": 1402698
+    },
+    "hellobacsi/hellobacsi_data_4": {
+      "count": 1271,
+      "total_words": 808467
+    },
+    "hellobacsi/hellobacsi_data_5": {
+      "count": 166,
+      "total_words": 101493
+    },
+    "hellobacsi/hellobacsi_data_7": {
+      "count": 2087,
+      "total_words": 1397921
+    },
+    "hellobacsi/hellobacsi_data_8": {
+      "count": 912,
+      "total_words": 582199
+    }
+  },
+  "top_50_words": {
+    "thuốc": 184764,
+    "dùng": 88525,
+    "sử_dụng": 76382,
+    "bệnh": 73514,
+    "điều_trị": 70863,
+    "người": 69400,
+    "gây": 59111,
+    "da": 55122,
+    "giảm": 49209,
+    "bác_sĩ": 49187,
+    "ngày": 47793,
+    "loại": 46575,
+    "giúp": 46354,
+    "tăng": 46114,
+    "cách": 45851,
+    "viêm": 45562,
+    "liều": 41244,
+    "máu": 39188,
+    "trẻ": 38311,
+    "tình_trạng": 37605,
+    "tác_dụng": 37128,
+    "đau": 37027,
+    "uống": 36509,
+    "việc": 35311,
+    "thường": 35275,
+    "một_số": 32912,
+    "triệu_chứng": 32509,
+    "sự": 31557,
+    "nước": 31481,
+    "mg": 30652,
+    "bệnh_nhân": 30135,
+    "người_bệnh": 29553,
+    "đường": 28690,
+    "lần": 28424,
+    "gặp": 26943,
+    "nguy_cơ": 25307,
+    "cơ_thể": 25159,
+    "hãy": 24919,
+    "bé": 24351,
+    "cao": 23815,
+    "thai": 23502,
+    "trường_hợp": 23500,
+    "tránh": 23445,
+    "mang": 23361,
+    "mắt": 22453,
+    "con": 22208,
+    "mẹ": 22092,
+    "đi": 21718,
+    "ăn": 21625,
+    "nguyên_nhân": 21423
+  }
 }
