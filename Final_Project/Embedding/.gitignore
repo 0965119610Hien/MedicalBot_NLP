@@ -1,0 +1,82 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+.env
+.venv38/
+
+# Byte-compiled / logs
+*.log
+.pytest_cache/
+
+# Jupyter
+.ipynb_checkpoints
+
+# System
+.DS_Store
+Thumbs.db
+
+# Streamlit secrets
+.streamlit/secrets.toml
+
+# ChromaDB and index artifacts
+medical_search_index/
+**/chroma_db/
+
+# Large model/checkpoint files
+*.pt
+*.pth
+*.bin
+
+# Pickles and caches
+*.pkl
+*.joblib
+
+# Data directories (do not push large datasets)
+data/
+dataset/
+processed_chunks.json
+
+# OS files
+desktop.ini
+
+# VSCode
+.vscode/
+
+# Ignore any local runs or temporary files
+run_*.bat
+# Streamlit secrets (NEVER commit API keys!)
+.streamlit/secrets.toml
+
+# Environment
+.env
+.env.local
+
+# Cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Streamlit
+.streamlit/.
+.streamlit/*
+!.streamlit/config.toml

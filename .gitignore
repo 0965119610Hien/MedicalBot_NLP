@@ -1,0 +1,101 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+.env
+.env.local
+.env.*.local
+
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.code-workspace
+
+# Jupyter & Notebooks
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+.jupyter/
+
+# Streamlit
+.streamlit/cache/
+.streamlit/generated_client_files/
+.streamlit/secrets.toml
+
+# Data & Model files (large files)
+*.pt
+*.pth
+*.h5
+*.pkl
+*.joblib
+*.csv
+*.xlsx
+*.xls
+data/
+dataset/
+*.npy
+*.npy.gz
+*.zip
+*.tar.gz
+
+# Database & Search Index
+medical_search_index/
+*.db
+chroma_db/
+
+# Output directories
+fer_outputs_*/
+runs/
+outputs/
+logs/
+checkpoints/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+*.log
+*.pot
+
+# OS files
+Thumbs.db
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Project specific
+*.json
+cm_raw.npy
+yolo11*.pt
+
+*.md

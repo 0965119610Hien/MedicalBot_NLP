@@ -1,0 +1,36 @@
+# ===== Medical Chatbot Dependencies =====
+# Core search and embedding
+--extra-index-url https://download.pytorch.org/whl/cu118
+chromadb==0.4.24
+torch==2.7.1+cu118
+sentence-transformers==5.4.1
+transformers==5.8.0
+sentencepiece==0.2.1
+rank-bm25==0.2.2
+pyvi==0.1.1
+
+# API & Web
+requests==2.33.1
+streamlit==1.40.1
+
+# Utils
+protobuf==5.29.6
+pyyaml==6.0.3
+scikit-learn==1.7.2
+numpy==1.26.4
+pandas==2.3.3
+
+# Vector search (optional - CPU version included)
+# For GPU, use: pip install faiss-gpu
+faiss-cpu==1.9.0; platform_system!='Windows'
+
+# ===== IMPORTANT =====
+# This project uses LM Studio (local model) for generation, NOT cloud APIs
+# See SETUP_LM_STUDIO.md for installation and configuration
+#
+# GPU Support:
+# If you have a CUDA-enabled GPU:
+#   1. Install torch with CUDA: pip install torch --index-url https://download.pytorch.org/whl/cu118
+#   2. Use GPU acceleration: pip install faiss-gpu
+#   3. Set CUDA_VISIBLE_DEVICES=0 before running
+
